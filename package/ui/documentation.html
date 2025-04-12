@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DevBridge - Documentation Generator</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Roboto+Mono&display=swap" rel="stylesheet">
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container header-container">
+            <div class="logo">
+                <i class="fas fa-bridge"></i> DevBridge
+            </div>
+            <nav class="nav">
+                <a href="index.html" class="nav-link">Home</a>
+                <a href="#" class="nav-link active">Documentation</a>
+                <a href="#" class="nav-link">Visualizations</a>
+                <a href="#" class="nav-link">Export</a>
+                <a href="#" class="nav-link">My Projects</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Documentation Generator Section -->
+    <section class="documentation">
+        <div class="container">
+            <div class="doc-container">
+                <div class="doc-sidebar">
+                    <div class="doc-nav">
+                        <a href="#" class="doc-nav-item active">Project Summary</a>
+                        <a href="#" class="doc-nav-item">Target Audience</a>
+                        <a href="#" class="doc-nav-item">Feature List</a>
+                        <a href="#" class="doc-nav-item">Tech Stack</a>
+                        <a href="#" class="doc-nav-item">Content Structure</a>
+                        <a href="#" class="doc-nav-item">Implementation Plan</a>
+                        <a href="#" class="doc-nav-item">Deployment Strategy</a>
+                    </div>
+                    <div style="margin-top: 2rem;">
+                        <button class="btn btn-primary" style="width: 100%;">Save Changes</button>
+                        <button class="btn btn-secondary" style="width: 100%; margin-top: 0.5rem;">Regenerate</button>
+                    </div>
+                </div>
+                <div class="doc-content">
+                    <div class="doc-section">
+                        <div class="doc-section-title">
+                            <i class="fas fa-file-alt doc-section-icon"></i>
+                            <h3>Project Summary</h3>
+                        </div>
+                        <div contenteditable="true" style="border: 1px dashed var(--neutral-300); padding: 1rem; border-radius: var(--radius-md);">
+                            <p>This portfolio website project aims to create a professional online presence for a creative professional, showcasing their work and providing a means for potential clients to make contact. The site will feature a clean, modern design with a responsive layout that works well on all devices.</p>
+                            <p>The website will include a curated display of portfolio items, an integrated Instagram feed to showcase recent work and behind-the-scenes content, and a contact form for inquiries. The design will prioritize visual presentation while maintaining fast loading times and intuitive navigation.</p>
+                            <p>Key objectives for this project include:</p>
+                            <ul>
+                                <li>Establishing a professional online presence</li>
+                                <li>Showcasing portfolio work in an attractive, organized manner</li>
+                                <li>Integrating social media content to keep the site fresh and engaging</li>
+                                <li>Providing an easy way for potential clients to make contact</li>
+                                <li>Creating a responsive experience that works well on all devices</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="doc-section">
+                        <div class="doc-section-title">
+                            <i class="fas fa-users doc-section-icon"></i>
+                            <h3>Target Audience</h3>
+                        </div>
+                        <div contenteditable="true" style="border: 1px dashed var(--neutral-300); padding: 1rem; border-radius: var(--radius-md);">
+                            <p><strong>Primary Audience:</strong> Potential clients looking to hire a creative professional, including marketing managers, art directors, and small business owners seeking design services.</p>
+                            <p><strong>Secondary Audience:</strong> Fellow creative professionals, recruiters, and industry peers who may be interested in collaboration or employment opportunities.</p>
+                            <p><strong>User Characteristics:</strong></p>
+                            <ul>
+                                <li>Visually oriented with high design expectations</li>
+                                <li>Likely to be viewing on both desktop and mobile devices</li>
+                                <li>Looking for evidence of skill, style, and professional capability</li>
+                                <li>May have limited technical knowledge but high aesthetic standards</li>
+                                <li>Often making quick judgments based on visual appeal</li>
+                                <li>Seeking easy ways to contact or connect with the portfolio owner</li>
+                            </ul>
+                            <p><strong>User Needs:</strong></p>
+                            <ul>
+                                <li>Quick access to relevant portfolio examples</li>
+                                <li>Clear understanding of services offered</li>
+                                <li>Easy contact methods</li>
+                                <li>Insight into the creative professional's style and approach</li>
+                                <li>Social proof through Instagram integration</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="doc-section">
+                        <div class="doc-section-title">
+                            <i class="fas fa-list-check doc-section-icon"></i>
+                            <h3>Feature List</h3>
+                        </div>
+                        <div contenteditable="true" style="border: 1px dashed var(--neutral-300); padding: 1rem; border-radius: var(--radius-md);">
+                            <p><strong>Core Features:</strong></p>
+                            <ol>
+                                <li>
+                                    <strong>Portfolio Gallery</strong>
+                                    <ul>
+                                        <li>Grid-based layout with filtering options</li>
+                                        <li>Project detail pages with comprehensive case studies</li>
+                                        <li>Image lightbox for enlarged viewing</li>
+                                        <li>Related projects suggestions</li>
+                                    </ul>
+                                </li>
+                                <li>
+                                    <strong>Instagram Feed Integration</strong>
+                                    <ul>
+                                        <li>Automatic display of recent Instagram posts</li>
+                                        <li>Grid layout matching the portfolio aesthetic</li>
+                                        <li>Click-through to original Instagram posts</li>
+                                        <li>Caching for performance optimization</li>
+                                    </ul>
+                                </li>
+                                <li>
+                                    <strong>Contact Form</strong>
+                                    <ul>
+                                        <li>User-friendly form with name, email, subject, and message fields</li>
+                                        <li>Form validation for required fields</li>
+                                        <li>CAPTCHA protection against spam</li>
+                                        <li>Success/error messaging</li>
+                                        <li>Email notification to site owner</li>
+                                    </ul>
+                                </li>
+                                <li>
+                                    <strong>Responsive Design</strong>
+                                    <ul>
+                                        <li>Mobile-first approach</li>
+                                        <li>Optimized layouts for phone, tablet, and desktop</li>
+                                        <li>Touch-friendly navigation</li>
+                                        <li>Fast loading on mobile connections</li>
+                                    </ul>
+                                </li>
+                            </ol>
+                            <p><strong>Additional Features:</strong></p>
+                            <ol>
+                                <li>
+                                    <strong>About Section</strong>
+                                    <ul>
+                                        <li>Professional bio</li>
+                                        <li>Skills and expertise listing</li>
+                                        <li>Professional photo</li>
+                                        <li>CV/resume download option</li>
+                                    </ul>
+                                </li>
+                                <li>
+                                    <strong>Testimonials</strong>
+                                    <ul>
+                                        <li>Client quotes with attribution</li>
+                                        <li>Carousel display for multiple testimonials</li>
+                                    </ul>
+                                </li>
+                                <li>
+                                    <strong>Blog/News Section</strong>
+                                    <ul>
+                                        <li>Optional blog for sharing insights and updates</li>
+                                        <li>Category filtering</li>
+                                        <li>Social sharing capabilities</li>
+                                    </ul>
+                                </li>
+                            </ol>
+                        </div>
+                    </div>
+                    <div class="doc-section">
+                        <div class="doc-section-title">
+                            <i class="fas fa-server doc-section-icon"></i>
+                            <h3>Tech Stack</h3>
+                        </div>
+                        <div contenteditable="true" style="border: 1px dashed var(--neutral-300); padding: 1rem; border-radius: var(--radius-md);">
+                            <p><strong>Recommended Technology Stack:</strong></p>
+                            <p><strong>Frontend:</strong></p>
+                            <ul>
+                                <li><strong>Framework:</strong> React.js with Next.js
+                                    <ul>
+                                        <li>Provides excellent performance with server-side rendering</li>
+                                        <li>Supports image optimization for portfolio items</li>
+                                        <li>Enables easy routing for project detail pages</li>
+                                        <li>Offers good SEO capabilities</li>
+                                    </ul>
+                                </li>
+                                <li><strong>Styling:</strong> Tailwind CSS
+                                    <ul>
+                                        <li>Utility-first approach for rapid development</li>
+                                        <li>Highly customizable for unique design</li>
+                                        <li>Built-in responsive design utilities</li>
+                                    </ul>
+                                </li>
+                                <li><strong>Animation:</strong> Framer Motion
+                                    <ul>
+                                        <li>Smooth animations for portfolio items</li>
+                                        <li>Page transitions for enhanced UX</li>
+                                    </ul>
+                                </li>
+                            </ul>
+                            <p><strong>Backend:</strong></p>
+                            <ul>
+                                <li><strong>API Routes:</strong> Next.js API routes
+                                    <ul>
+                                        <li>Serverless functions for contact form handling</li>
+                                        <li>Instagram API integration</li>
+                                    </ul>
+                                </li>
+                                <li><strong>Email Service:</strong> SendGrid or Nodemailer
+                                    <ul>
+                                        <li>Reliable email delivery for contact form submissions</li>
+                                    </ul>
+                                </li>
+                            </ul>
+                            <p><strong>Content Management:</strong></p>
+                            <ul>
+                                <li><strong>Headless CMS:</strong> Sanity.io
+                                    <ul>
+                                        <li>Structured content for portfolio items</li>
+                                        <li>Custom schemas for project details</li>
+                                        <li>Real-time updates</li>
+                                        <li>Image asset management</li>
+                                    </ul>
+                                </li>
+                            </ul>
+                            <p><strong>Deployment:</strong></p>
+                            <ul>
+                                <li><strong>Hosting:</strong> Vercel
+                                    <ul>
+                                        <li>Optimized for Next.js applications</li>
+                                        <li>Global CDN for fast loading</li>
+                                        <li>Automatic HTTPS</li>
+                                        <li>Preview deployments for testing changes</li>
+                                    </ul>
+                                </li>
+                                <li><strong>Domain & DNS:</strong> Cloudflare
+                                    <ul>
+                                        <li>Additional performance optimization</li>
+                                        <li>DDoS protection</li>
+                                    </ul>
+                                </li>
+                            </ul>
+                            <p><strong>Third-Party Integrations:</strong></p>
+                            <ul>
+                                <li><strong>Instagram:</strong> Instagram Basic Display API
+                                    <ul>
+                                        <li>Fetch and display recent posts</li>
+                                        <li>Requires user authentication</li>
+                                    </ul>
+                                </li>
+                                <li><strong>Analytics:</strong> Google Analytics 4
+                                    <ul>
+                                        <li>Track user behavior and engagement</li>
+                                        <li>Monitor portfolio item popularity</li>
+                                    </ul>
+                                </li>
+                                <li><strong>Form Protection:</strong> reCAPTCHA v3
+                                    <ul>
+                                        <li>Invisible spam protection</li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="doc-actions" style="display: flex; justify-content: space-between; margin-top: 2rem;">
+                        <button class="btn btn-secondary">Previous Section</button>
+                        <button class="btn btn-primary">Next Section</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container footer-container">
+            <div>
+                <div class="footer-logo">
+                    <i class="fas fa-bridge"></i> DevBridge
+                </div>
+                <p class="footer-description">Bridging the gap between concept and creation with AI-powered automation.</p>
+                <div class="footer-social">
+                    <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
+                    <a href="#" class="social-icon"><i class="fab fa-linkedin"></i></a>
+                    <a href="#" class="social-icon"><i class="fab fa-github"></i></a>
+                </div>
+            </div>
+            <div>
+                <h4 class="footer-heading">Product</h4>
+                <div class="footer-links">
+                    <a href="#" class="footer-link">Features</a>
+                    <a href="#" class="footer-link">Pricing</a>
+                    <a href="#" class="footer-link">Documentation</a>
+                    <a href="#" class="footer-link">API</a>
+                </div>
+            </div>
+            <div>
+                <h4 class="footer-heading">Resources</h4>
+                <div class="footer-links">
+                    <a href="#" class="footer-link">Blog</a>
+                    <a href="#" class="footer-link">Tutorials</a>
+                    <a href="#" class="footer-link">Support</a>
+                    <a href="#" class="footer-link">Community</a>
+                </div>
+            </div>
+            <div>
+                <h4 class="footer-heading">Company</h4>
+                <div class="footer-links">
+                    <a href="#" class="footer-link">About</a>
+                    <a href="#" class="footer-link">Careers</a>
+                    <a href="#" class="footer-link">Contact</a>
+                    <a href="#" class="footer-link">Privacy Policy</a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2025 DevBridge. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Simple JavaScript for demonstration purposes
+        document.addEventListener('DOMContentLoaded', function() {
+            // Handle documentation navigation
+            const docNavItems = document.querySelectorAll('.doc-nav-item');
+            docNavItems.forEach(item => {
+                item.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    docNavItems.forEach(i => i.classList.remove('active'));
+                    this.classList.add('active');
+                    // In a real implementation, would show/hide corresponding content
+                });
+            });
+
+            // Handle next/previous buttons
+            const nextBtn = document.querySelector('.doc-actions .btn-primary');
+            const prevBtn = document.querySelector('.doc-actions .btn-secondary');
+            
+            if (nextBtn) {
+                nextBtn.addEventListener('click', function() {
+                    // Find current active nav item
+                    const activeItem = document.querySelector('.doc-nav-item.active');
+                    const nextItem = activeItem.nextElementSibling;
+                    if (nextItem) {
+                        activeItem.classList.remove('active');
+                        nextItem.classList.add('active');
+                        // In a real implementation, would show/hide corresponding content
+                    }
+                });
+            }
+            
+            if (prevBtn) {
+                prevBtn.addEventListener('click', function() {
+                    // Find current active nav item
+                    const activeItem = document.querySelector('.doc-nav-item.active');
+                    const prevItem = activeItem.previousElementSibling;
+                    if (prevItem) {
+                        activeItem.classList.remove('active');
+                        prevItem.classList.add('active');
+                        // In a real implementation, would show/hide corresponding content
+                    }
+                });
+            }
+        });
+    </script>
+</body>
+</html>

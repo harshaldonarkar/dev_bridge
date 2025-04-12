@@ -1,0 +1,523 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DevBridge - Visualization Components</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Roboto+Mono&display=swap" rel="stylesheet">
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        /* Additional styles specific to visualization page */
+        .node {
+            fill: #fff;
+            stroke: var(--primary-color);
+            stroke-width: 2px;
+        }
+        
+        .link {
+            fill: none;
+            stroke: var(--neutral-400);
+            stroke-width: 1.5px;
+        }
+        
+        .node text {
+            font-size: 12px;
+            fill: var(--neutral-800);
+        }
+        
+        .node.active {
+            fill: var(--primary-light);
+        }
+        
+        .node:hover {
+            fill: var(--primary-light);
+            cursor: pointer;
+        }
+        
+        .component-card {
+            border: 2px solid var(--neutral-300);
+            border-radius: var(--radius-md);
+            padding: 1rem;
+            margin-bottom: 1rem;
+            background-color: white;
+            transition: all 0.3s ease;
+        }
+        
+        .component-card:hover {
+            border-color: var(--primary-color);
+            box-shadow: var(--shadow-md);
+        }
+        
+        .component-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 0.5rem;
+        }
+        
+        .component-title {
+            font-weight: 600;
+            color: var(--neutral-800);
+        }
+        
+        .component-type {
+            font-size: 0.75rem;
+            padding: 0.25rem 0.5rem;
+            border-radius: 1rem;
+            background-color: var(--primary-light);
+            color: white;
+        }
+        
+        .relationship-line {
+            height: 2px;
+            background-color: var(--neutral-400);
+            margin: 1rem 0;
+            position: relative;
+        }
+        
+        .relationship-line::after {
+            content: '';
+            position: absolute;
+            right: 0;
+            top: -4px;
+            width: 0;
+            height: 0;
+            border-top: 5px solid transparent;
+            border-bottom: 5px solid transparent;
+            border-left: 8px solid var(--neutral-400);
+        }
+        
+        .user-flow-step {
+            display: flex;
+            margin-bottom: 2rem;
+        }
+        
+        .flow-number {
+            width: 2rem;
+            height: 2rem;
+            border-radius: 50%;
+            background-color: var(--primary-color);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            margin-right: 1rem;
+            flex-shrink: 0;
+        }
+        
+        .flow-content {
+            flex: 1;
+        }
+        
+        .flow-arrow {
+            display: flex;
+            justify-content: center;
+            margin: 1rem 0;
+            color: var(--primary-color);
+            font-size: 1.5rem;
+        }
+        
+        .canvas-container {
+            width: 100%;
+            height: 500px;
+            border: 1px solid var(--neutral-300);
+            border-radius: var(--radius-md);
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .canvas-toolbar {
+            display: flex;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .canvas-tool {
+            padding: 0.5rem;
+            border-radius: var(--radius-sm);
+            background-color: var(--neutral-100);
+            border: 1px solid var(--neutral-300);
+            cursor: pointer;
+        }
+        
+        .canvas-tool:hover {
+            background-color: var(--neutral-200);
+        }
+        
+        .canvas-tool.active {
+            background-color: var(--primary-color);
+            color: white;
+            border-color: var(--primary-color);
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container header-container">
+            <div class="logo">
+                <i class="fas fa-bridge"></i> DevBridge
+            </div>
+            <nav class="nav">
+                <a href="index.html" class="nav-link">Home</a>
+                <a href="documentation.html" class="nav-link">Documentation</a>
+                <a href="#" class="nav-link active">Visualizations</a>
+                <a href="#" class="nav-link">Export</a>
+                <a href="#" class="nav-link">My Projects</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Visualization Section -->
+    <section class="visualization">
+        <div class="container">
+            <div class="viz-container">
+                <div class="viz-tabs">
+                    <div class="viz-tab active">Site Map</div>
+                    <div class="viz-tab">Component Relationships</div>
+                    <div class="viz-tab">User Flow</div>
+                    <div class="viz-tab">Interactive Editor</div>
+                </div>
+                
+                <!-- Site Map View -->
+                <div class="viz-content" id="sitemap-view">
+                    <div class="sitemap">
+                        <div class="sitemap-node">Home Page</div>
+                        <div class="sitemap-children">
+                            <div class="sitemap-child">
+                                <div class="sitemap-node">Portfolio</div>
+                                <div class="sitemap-children">
+                                    <div class="sitemap-child">
+                                        <div class="sitemap-node">Project 1</div>
+                                    </div>
+                                    <div class="sitemap-child">
+                                        <div class="sitemap-node">Project 2</div>
+                                    </div>
+                                    <div class="sitemap-child">
+                                        <div class="sitemap-node">Project 3</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="sitemap-child">
+                                <div class="sitemap-node">About</div>
+                            </div>
+                            <div class="sitemap-child">
+                                <div class="sitemap-node">Instagram Feed</div>
+                            </div>
+                            <div class="sitemap-child">
+                                <div class="sitemap-node">Contact</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div style="text-align: center; margin-top: 2rem;">
+                        <button class="btn btn-secondary">
+                            <i class="fas fa-plus"></i> Add Page
+                        </button>
+                        <button class="btn btn-secondary">
+                            <i class="fas fa-pen"></i> Edit Selected
+                        </button>
+                        <button class="btn btn-secondary">
+                            <i class="fas fa-trash"></i> Remove
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Component Relationships View -->
+                <div class="viz-content" id="relationships-view" style="display: none;">
+                    <div class="component-card">
+                        <div class="component-header">
+                            <div class="component-title">Header Component</div>
+                            <div class="component-type">UI Component</div>
+                        </div>
+                        <p>Main navigation component that appears on all pages</p>
+                        <div class="component-props">
+                            <strong>Properties:</strong> logo, navigation items
+                        </div>
+                    </div>
+                    
+                    <div class="relationship-line"></div>
+                    
+                    <div class="component-card">
+                        <div class="component-header">
+                            <div class="component-title">Portfolio Grid</div>
+                            <div class="component-type">UI Component</div>
+                        </div>
+                        <p>Displays portfolio items in a responsive grid layout</p>
+                        <div class="component-props">
+                            <strong>Properties:</strong> items, filter categories, layout type
+                        </div>
+                    </div>
+                    
+                    <div class="relationship-line"></div>
+                    
+                    <div class="component-card">
+                        <div class="component-header">
+                            <div class="component-title">Portfolio Item</div>
+                            <div class="component-type">UI Component</div>
+                        </div>
+                        <p>Individual portfolio project card with image and details</p>
+                        <div class="component-props">
+                            <strong>Properties:</strong> image, title, category, description, link
+                        </div>
+                    </div>
+                    
+                    <div class="relationship-line"></div>
+                    
+                    <div class="component-card">
+                        <div class="component-header">
+                            <div class="component-title">Instagram Feed</div>
+                            <div class="component-type">Integration Component</div>
+                        </div>
+                        <p>Displays recent Instagram posts in a grid layout</p>
+                        <div class="component-props">
+                            <strong>Properties:</strong> username, post count, layout type
+                        </div>
+                        <div class="component-api">
+                            <strong>API Dependencies:</strong> Instagram Basic Display API
+                        </div>
+                    </div>
+                    
+                    <div style="text-align: center; margin-top: 2rem;">
+                        <button class="btn btn-secondary">
+                            <i class="fas fa-plus"></i> Add Component
+                        </button>
+                        <button class="btn btn-secondary">
+                            <i class="fas fa-link"></i> Create Relationship
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- User Flow View -->
+                <div class="viz-content" id="user-flow-view" style="display: none;">
+                    <div class="user-flow-step">
+                        <div class="flow-number">1</div>
+                        <div class="flow-content">
+                            <h4>User Lands on Home Page</h4>
+                            <p>User arrives at the portfolio website home page, which displays featured portfolio items and a brief introduction.</p>
+                            <div class="component-card" style="margin-top: 0.5rem;">
+                                <div class="component-header">
+                                    <div class="component-title">Home Page</div>
+                                </div>
+                                <p>Components: Header, Hero Section, Featured Portfolio Grid, Instagram Feed Preview, Footer</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="flow-arrow">
+                        <i class="fas fa-arrow-down"></i>
+                    </div>
+                    
+                    <div class="user-flow-step">
+                        <div class="flow-number">2</div>
+                        <div class="flow-content">
+                            <h4>User Browses Portfolio</h4>
+                            <p>User navigates to the portfolio section to browse all projects, potentially using category filters.</p>
+                            <div class="component-card" style="margin-top: 0.5rem;">
+                                <div class="component-header">
+                                    <div class="component-title">Portfolio Page</div>
+                                </div>
+                                <p>Components: Header, Portfolio Grid with Filters, Pagination, Footer</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="flow-arrow">
+                        <i class="fas fa-arrow-down"></i>
+                    </div>
+                    
+                    <div class="user-flow-step">
+                        <div class="flow-number">3</div>
+                        <div class="flow-content">
+                            <h4>User Views Project Details</h4>
+                            <p>User clicks on a portfolio item to view detailed information about a specific project.</p>
+                            <div class="component-card" style="margin-top: 0.5rem;">
+                                <div class="component-header">
+                                    <div class="component-title">Project Detail Page</div>
+                                </div>
+                                <p>Components: Header, Project Gallery, Project Description, Related Projects, Footer</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="flow-arrow">
+                        <i class="fas fa-arrow-down"></i>
+                    </div>
+                    
+                    <div class="user-flow-step">
+                        <div class="flow-number">4</div>
+                        <div class="flow-content">
+                            <h4>User Initiates Contact</h4>
+                            <p>Impressed by the portfolio, user navigates to the contact page to send an inquiry.</p>
+                            <div class="component-card" style="margin-top: 0.5rem;">
+                                <div class="component-header">
+                                    <div class="component-title">Contact Page</div>
+                                </div>
+                                <p>Components: Header, Contact Form, Contact Information, Social Links, Footer</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div style="text-align: center; margin-top: 2rem;">
+                        <button class="btn btn-secondary">
+                            <i class="fas fa-plus"></i> Add Step
+                        </button>
+                        <button class="btn btn-secondary">
+                            <i class="fas fa-pen"></i> Edit Selected
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Interactive Editor View -->
+                <div class="viz-content" id="editor-view" style="display: none;">
+                    <div class="canvas-toolbar">
+                        <div class="canvas-tool active" title="Select">
+                            <i class="fas fa-mouse-pointer"></i>
+                        </div>
+                        <div class="canvas-tool" title="Add Page">
+                            <i class="fas fa-file"></i>
+                        </div>
+                        <div class="canvas-tool" title="Add Component">
+                            <i class="fas fa-puzzle-piece"></i>
+                        </div>
+                        <div class="canvas-tool" title="Connect">
+                            <i class="fas fa-link"></i>
+                        </div>
+                        <div class="canvas-tool" title="Text">
+                            <i class="fas fa-font"></i>
+                        </div>
+                        <div class="canvas-tool" title="Delete">
+                            <i class="fas fa-trash"></i>
+                        </div>
+                        <div style="flex-grow: 1;"></div>
+                        <div class="canvas-tool" title="Zoom In">
+                            <i class="fas fa-search-plus"></i>
+                        </div>
+                        <div class="canvas-tool" title="Zoom Out">
+                            <i class="fas fa-search-minus"></i>
+                        </div>
+                        <div class="canvas-tool" title="Reset View">
+                            <i class="fas fa-expand"></i>
+                        </div>
+                    </div>
+                    
+                    <div class="canvas-container">
+                        <!-- This would be replaced with an actual interactive canvas in the real implementation -->
+                        <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); text-align: center; color: var(--neutral-500);">
+                            <i class="fas fa-sitemap" style="font-size: 4rem; margin-bottom: 1rem;"></i>
+                            <p>Interactive site structure editor would be implemented here.</p>
+                            <p>Users can drag and drop components to create custom site structures.</p>
+                        </div>
+                    </div>
+                    
+                    <div style="display: flex; justify-content: space-between; margin-top: 1rem;">
+                        <button class="btn btn-secondary">
+                            <i class="fas fa-undo"></i> Undo
+                        </button>
+                        <button class="btn btn-primary">
+                            <i class="fas fa-save"></i> Save Changes
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container footer-container">
+            <div>
+                <div class="footer-logo">
+                    <i class="fas fa-bridge"></i> DevBridge
+                </div>
+                <p class="footer-description">Bridging the gap between concept and creation with AI-powered automation.</p>
+                <div class="footer-social">
+                    <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
+                    <a href="#" class="social-icon"><i class="fab fa-linkedin"></i></a>
+                    <a href="#" class="social-icon"><i class="fab fa-github"></i></a>
+                </div>
+            </div>
+            <div>
+                <h4 class="footer-heading">Product</h4>
+                <div class="footer-links">
+                    <a href="#" class="footer-link">Features</a>
+                    <a href="#" class="footer-link">Pricing</a>
+                    <a href="#" class="footer-link">Documentation</a>
+                    <a href="#" class="footer-link">API</a>
+                </div>
+            </div>
+            <div>
+                <h4 class="footer-heading">Resources</h4>
+                <div class="footer-links">
+                    <a href="#" class="footer-link">Blog</a>
+                    <a href="#" class="footer-link">Tutorials</a>
+                    <a href="#" class="footer-link">Support</a>
+                    <a href="#" class="footer-link">Community</a>
+                </div>
+            </div>
+            <div>
+                <h4 class="footer-heading">Company</h4>
+                <div class="footer-links">
+                    <a href="#" class="footer-link">About</a>
+                    <a href="#" class="footer-link">Careers</a>
+                    <a href="#" class="footer-link">Contact</a>
+                    <a href="#" class="footer-link">Privacy Policy</a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2025 DevBridge. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Simple JavaScript for demonstration purposes
+        document.addEventListener('DOMContentLoaded', function() {
+            // Handle tab switching in visualization section
+            const tabs = document.querySelectorAll('.viz-tab');
+            const contentViews = [
+                document.getElementById('sitemap-view'),
+                document.getElementById('relationships-view'),
+                document.getElementById('user-flow-view'),
+                document.getElementById('editor-view')
+            ];
+            
+            tabs.forEach((tab, index) => {
+                tab.addEventListener('click', function() {
+                    // Update active tab
+                    tabs.forEach(t => t.classList.remove('active'));
+                    this.classList.add('active');
+                    
+                    // Show corresponding content
+                    contentViews.forEach(view => {
+                        view.style.display = 'none';
+                    });
+                    contentViews[index].style.display = 'block';
+                });
+            });
+            
+            // Handle canvas tools
+            const canvasTools = document.querySelectorAll('.canvas-tool');
+            canvasTools.forEach(tool => {
+                tool.addEventListener('click', function() {
+                    canvasTools.forEach(t => t.classList.remove('active'));
+                    this.classList.add('active');
+                });
+            });
+            
+            // Make sitemap nodes selectable
+            const sitemapNodes = document.querySelectorAll('.sitemap-node');
+            sitemapNodes.forEach(node => {
+                node.addEventListener('click', function() {
+                    sitemapNodes.forEach(n => n.style.backgroundColor = '');
+                    this.style.backgroundColor = 'var(--primary-light)';
+                    this.style.color = 'white';
+                });
+            });
+        });
+    </script>
+</body>
+</html>
