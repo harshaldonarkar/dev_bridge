@@ -24,7 +24,7 @@ from code_generation.frontend_generator import ReactNextGenerator
 from code_generation.backend_generator import NodeExpressGenerator
 from code_generation.ai_agent_generator import OpenAIAgentGenerator
 from visualization.visualization_generator import VisualizationGenerator
-
+from code_generation.gemini_code_generator import GeminiCodeGenerator
 # Load environment variables
 load_dotenv()
 
@@ -39,6 +39,8 @@ code_orchestrator = CodeGenerationOrchestrator()
 code_orchestrator.register_generator('frontend', ReactNextGenerator())
 code_orchestrator.register_generator('backend', NodeExpressGenerator())
 code_orchestrator.register_generator('ai_agent', OpenAIAgentGenerator())
+code_orchestrator.register_generator('gemini', GeminiCodeGenerator())
+
 
 @app.route('/')
 def index():

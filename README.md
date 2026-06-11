@@ -1,5 +1,5 @@
 # DevBridge: AI-Powered Pre-Development Automation Platform
-
+> Prompt → Documentation → Visualizations → Starter Code. Powered by GPT-4 and Gemini, with PDF/DOCX export and D3.js diagrams.
 ## Overview
 
 DevBridge is an innovative platform that bridges the gap between client ideas and technical implementation. It transforms simple prompts like "a portfolio website with a contact form and Instagram feed" into comprehensive documentation, visualizations, and starter code.

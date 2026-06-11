@@ -259,7 +259,7 @@ class CodeGenerationFactory:
         Create a code generator of the specified type.
         
         Args:
-            generator_type: Type of generator to create (frontend, backend, ai_agent)
+            generator_type: Type of generator to create (frontend, backend, ai_agent, gemini)
             config: Configuration options for the generator
             
         Returns:
@@ -274,6 +274,9 @@ class CodeGenerationFactory:
         elif generator_type == 'ai_agent':
             from .ai_agent_generator import OpenAIAgentGenerator
             return OpenAIAgentGenerator(config)
+        elif generator_type == 'gemini':
+            from .gemini_code_generator import GeminiCodeGenerator
+            return GeminiCodeGenerator(config)
         else:
             raise ValueError(f"Unknown generator type: {generator_type}")
 

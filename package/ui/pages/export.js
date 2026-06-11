@@ -1,4 +1,4 @@
-// pages/export.js - updated version with better debugging
+// pages/export.js - simplified version without original PDF export
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
@@ -30,9 +30,8 @@ export default function Export() {
     }
   }, []);
   
-// In pages/export.js, update the handleExport function
-
-const handleExport = async (format) => {
+  // Handler for the simple PDF export using reportlab
+  const handleSimplePdfExport = async () => {
     if (!documentation) {
       setError('No documentation to export.');
       return;
@@ -44,17 +43,11 @@ const handleExport = async (format) => {
     setDebugInfo(null);
     
     try {
-      // Use the simple PDF endpoint instead of the regular PDF endpoint
-      const endpoint = format === 'pdf' ? '/api/export/simple-pdf' : 
-                       format === 'docx' ? '/api/export/docx' : 
-                       '/api/export/simple-pdf';
-                       
-      const apiUrl = `http://localhost:5001${endpoint}`;
+      const apiUrl = 'http://localhost:5001/api/export/simple-pdf';
       
-      console.log(`Exporting to ${format} using endpoint: ${apiUrl}`);
-      setDebugInfo(`Starting export to ${format}...`);
+      console.log('Exporting to simple PDF');
+      setDebugInfo('Starting simple PDF export...');
       
-      // Use fetch with blob response type
       const response = await fetch(apiUrl, {
         method: 'POST',
         headers: {
@@ -83,7 +76,7 @@ const handleExport = async (format) => {
       
       // Create a download link
       const downloadUrl = window.URL.createObjectURL(blob);
-      const filename = `${documentation.project_summary?.title || 'documentation'}.${format}`;
+      const filename = `${documentation.project_summary?.title || 'documentation'}.pdf`;
       
       const link = document.createElement('a');
       link.href = downloadUrl;
@@ -96,16 +89,84 @@ const handleExport = async (format) => {
         document.body.removeChild(link);
       }, 100);
       
-      setExportSuccess(`Documentation exported successfully as ${format.toUpperCase()}.`);
+      setExportSuccess('Documentation exported successfully as PDF.');
     } catch (error) {
-      console.error(`Error exporting to ${format}:`, error);
-      setError(`Error exporting to ${format}: ${error.message}`);
+      console.error('Error exporting to PDF:', error);
+      setError(`Error exporting to PDF: ${error.message}`);
     } finally {
       setIsLoading(false);
     }
   };
   
-  // Alternative direct approach for HTML export
+  // Handler for DOCX export
+  const handleDocxExport = async () => {
+    if (!documentation) {
+      setError('No documentation to export.');
+      return;
+    }
+    
+    setIsLoading(true);
+    setError(null);
+    setExportSuccess(null);
+    setDebugInfo(null);
+    
+    try {
+      const apiUrl = 'http://localhost:5001/api/export/docx';
+      
+      console.log('Exporting to DOCX');
+      setDebugInfo('Starting DOCX export...');
+      
+      const response = await fetch(apiUrl, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ documentation }),
+      });
+      
+      setDebugInfo(prev => `${prev}\nFetch completed with status: ${response.status}`);
+      
+      if (!response.ok) {
+        const errorText = await response.text();
+        throw new Error(`Export failed with status ${response.status}: ${errorText}`);
+      }
+      
+      // Get the blob directly
+      const blob = await response.blob();
+      
+      setDebugInfo(prev => 
+        `${prev}\nBlob received: size=${blob.size}, type=${blob.type}`
+      );
+      
+      if (blob.size === 0) {
+        throw new Error('Received empty file from server');
+      }
+      
+      // Create a download link
+      const downloadUrl = window.URL.createObjectURL(blob);
+      const filename = `${documentation.project_summary?.title || 'documentation'}.docx`;
+      
+      const link = document.createElement('a');
+      link.href = downloadUrl;
+      link.download = filename;
+      document.body.appendChild(link);
+      link.click();
+      
+      setTimeout(() => {
+        window.URL.revokeObjectURL(downloadUrl);
+        document.body.removeChild(link);
+      }, 100);
+      
+      setExportSuccess('Documentation exported successfully as DOCX.');
+    } catch (error) {
+      console.error('Error exporting to DOCX:', error);
+      setError(`Error exporting to DOCX: ${error.message}`);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+  
+  // HTML export (client-side only)
   const handleHtmlExport = () => {
     if (!documentation) {
       setError('No documentation to export.');
@@ -219,6 +280,7 @@ const handleExport = async (format) => {
             <Link href="/documentation" className="nav-link">Documentation</Link>
             <Link href="/visualization" className="nav-link">Visualizations</Link>
             <Link href="/export" className="nav-link active">Export</Link>
+            <Link href="/code" className="nav-link">Code Generation</Link>
             <Link href="#" className="nav-link">My Projects</Link>
           </nav>
         </div>
@@ -274,7 +336,24 @@ const handleExport = async (format) => {
           )}
           
           <div className="export-options">
-            {/* Add HTML export which works client-side */}
+            
+            {/* DOCX export */}
+            <div className="export-option">
+              <div className="export-icon">
+                <i className="fas fa-file-word"></i>
+              </div>
+              <h3 className="export-title">DOCX Export</h3>
+              <p className="export-description">Editable document format for further customization</p>
+              <button 
+                className="btn btn-primary" 
+                onClick={handleDocxExport}
+                disabled={isLoading || !documentation}
+              >
+                {isLoading ? 'Exporting...' : 'Export as DOCX'}
+              </button>
+            </div>
+            
+            {/* HTML export (client-side) */}
             <div className="export-option">
               <div className="export-icon">
                 <i className="fas fa-file-code"></i>
@@ -287,36 +366,6 @@ const handleExport = async (format) => {
                 disabled={isLoading || !documentation}
               >
                 Export as HTML
-              </button>
-            </div>
-          
-            <div className="export-option">
-              <div className="export-icon">
-                <i className="fas fa-file-pdf"></i>
-              </div>
-              <h3 className="export-title">PDF Export</h3>
-              <p className="export-description">Professional document format ideal for sharing and printing</p>
-              <button 
-                className="btn btn-primary" 
-                onClick={() => handleExport('pdf')}
-                disabled={isLoading || !documentation}
-              >
-                {isLoading ? 'Exporting...' : 'Export as PDF'}
-              </button>
-            </div>
-            
-            <div className="export-option">
-              <div className="export-icon">
-                <i className="fas fa-file-word"></i>
-              </div>
-              <h3 className="export-title">DOCX Export</h3>
-              <p className="export-description">Editable document format for further customization</p>
-              <button 
-                className="btn btn-primary" 
-                onClick={() => handleExport('docx')}
-                disabled={isLoading || !documentation}
-              >
-                {isLoading ? 'Exporting...' : 'Export as DOCX'}
               </button>
             </div>
           </div>

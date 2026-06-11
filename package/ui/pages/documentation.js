@@ -175,6 +175,7 @@ useEffect(() => {
             <Link href="#" className="nav-link active">Documentation</Link>
             <Link href="/visualization" className="nav-link">Visualizations</Link>
             <Link href="/export" className="nav-link">Export</Link>
+            <Link href="/code" className="nav-link">Code Generation</Link>
             <Link href="#" className="nav-link">My Projects</Link>
           </nav>
         </div>

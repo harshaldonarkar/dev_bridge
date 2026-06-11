@@ -413,6 +413,7 @@ export default function Visualization() {
             <Link href="/documentation" className="nav-link">Documentation</Link>
             <Link href="/visualization" className="nav-link active">Visualizations</Link>
             <Link href="/export" className="nav-link">Export</Link>
+            <Link href="/code" className="nav-link">Code Generation</Link>
             <Link href="#" className="nav-link">My Projects</Link>
           </nav>
         </div>

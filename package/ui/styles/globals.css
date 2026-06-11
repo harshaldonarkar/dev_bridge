@@ -862,3 +862,112 @@
     font-size: 0.875rem;
     z-index: 10;
   }
+  /* Code generation styles */
+.code-options {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2rem;
+    margin-bottom: 2rem;
+  }
+  
+  @media (min-width: 768px) {
+    .code-options {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+  
+  .code-option {
+    background-color: var(--neutral-50);
+    border-radius: var(--radius-lg);
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    box-shadow: var(--shadow-sm);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+  
+  .code-option:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-md);
+  }
+  
+  .code-icon {
+    font-size: 2rem;
+    color: var(--primary-color);
+    margin-bottom: 1rem;
+  }
+  
+  .code-title {
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    color: var(--neutral-900);
+  }
+  
+  .code-description {
+    color: var(--neutral-700);
+    margin-bottom: 1rem;
+    flex-grow: 1;
+  }
+  
+  .code-features {
+    margin-bottom: 1.5rem;
+  }
+  
+  .code-features ul {
+    list-style-type: none;
+    padding-left: 0;
+  }
+  
+  .code-features li {
+    position: relative;
+    padding-left: 1.5rem;
+    margin-bottom: 0.5rem;
+    font-size: 0.875rem;
+    color: var(--neutral-700);
+  }
+  
+  .code-features li:before {
+    content: "✓";
+    position: absolute;
+    left: 0;
+    color: var(--primary-color);
+    font-weight: bold;
+  }
+  
+  .code-guide {
+    background-color: var(--neutral-100);
+    border-radius: var(--radius-md);
+    padding: 2rem;
+    margin-top: 3rem;
+  }
+  
+  .code-guide h3 {
+    margin-top: 0;
+    margin-bottom: 1rem;
+    font-size: 1.25rem;
+    color: var(--neutral-900);
+  }
+  
+  .code-guide ol {
+    padding-left: 1.5rem;
+  }
+  
+  .code-guide li {
+    margin-bottom: 0.75rem;
+    color: var(--neutral-800);
+  }
+  
+  .code-guide code {
+    background-color: var(--neutral-200);
+    padding: 0.125rem 0.25rem;
+    border-radius: var(--radius-sm);
+    font-family: var(--font-mono);
+    font-size: 0.875rem;
+  }
+  
+  .code-guide p {
+    margin-top: 1.5rem;
+    color: var(--neutral-700);
+  }
