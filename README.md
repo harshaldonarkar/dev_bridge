@@ -49,7 +49,7 @@ The platform consists of several key components:
 
 1. Clone the repository:
 ```bash
-git clone https://github.com/yourusername/devbridge.git
+git clone https://github.com/harshaldonarkar/dev_bridge.git
 cd devbridge
 ```
 
